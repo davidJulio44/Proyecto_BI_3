@@ -12,7 +12,7 @@ def train_arima(df: pd.DataFrame, date_col: str, target_col: str, order=(1,1,1),
     res = model.fit(disp=False)
     preds = res.get_forecast(steps=len(y_test)).predicted_mean
     mae = mean_absolute_error(y_test, preds)
-    rmse = mean_squared_error(y_test, preds, squared=False)
+    rmse = np.sqrt(mean_squared_error(y_test, preds))
     return res, y_train, y_test, preds, {'MAE': mae, 'RMSE': rmse}
 
 def forecast_arima(fitted_res, steps: int = 30):

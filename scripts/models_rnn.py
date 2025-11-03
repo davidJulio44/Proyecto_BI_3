@@ -40,5 +40,5 @@ def train_rnn(df: pd.DataFrame, date_col: str, target_col: str, model_type: str 
     preds_inv = scaler.inverse_transform(preds.reshape(-1,1)).ravel()
     y_test_inv = scaler.inverse_transform(y_test.reshape(-1,1)).ravel()
     mae = mean_absolute_error(y_test_inv, preds_inv)
-    rmse = mean_squared_error(y_test_inv, preds_inv, squared=False)
+    rmse = np.sqrt(mean_squared_error(y_test_inv, preds_inv))
     return model, scaler, {'MAE': mae, 'RMSE': rmse}
