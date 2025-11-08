@@ -17,11 +17,16 @@ seaborn = "^0.13.0"
 scikit-learn = "^1.4.0"
 statsmodels = "^0.14.0"
 tensorflow = "^2.16.0"
+fastapi = "^0.115.0"
+uvicorn = {version = "^0.30.0", extras = ["standard"]}
+loguru = "^0.7.2"
+httpx = "^0.27.0"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.0"
 jupyter = "^1.0.0"
 ruff = "^0.6.0"
+pytest = "^8.0.0"
 
 [build-system]
 requires = ["poetry-core"]

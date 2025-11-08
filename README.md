@@ -1,11 +1,11 @@
 # Proyecto Business Intelligence 3: Análisis de Criptomonedas
-## ETL, EDA, Clustering y Modelos de Series de Tiempo
+## ETL, EDA, Clustering y Series de Tiempo
 
 **Autores:** Juan David Reyes Cure, Julio David Suarez Olaya, Adriana Michelle Diaz Suarez  
 **Versión:** 0.2.0
 
 ### Resumen Ejecutivo
-Pipeline integral de Business Intelligence para análisis de criptomonedas (BTC, ETH, BNB) que incluye:
+Pipeline integral para análisis de criptomonedas (BTC, ETH, BNB) que incluye:
 - **ETL (Extract, Transform, Load):** Extracción de datos desde APIs públicas (CoinGecko/Binance)
 - **EDA (Exploratory Data Analysis):** Análisis exploratorio con visualizaciones y estadísticas descriptivas
 - **Clustering:** Segmentación de patrones de mercado usando K-Means, DBSCAN y Agglomerative Clustering
@@ -52,7 +52,7 @@ Pipeline integral de Business Intelligence para análisis de criptomonedas (BTC,
 - Poetry para gestión de dependencias
 
 
-## Estructura del Proyecto
+## Estructura del Proyecto (resumen)
 
 ```
 Proyecto_BI_3/
@@ -93,7 +93,7 @@ Proyecto_BI_3/
 - Las visualizaciones se generan en `reports/eda/`
 
 
-## Instalación y Configuración
+## Instalación y Configuración (rápido)
 
 ### 1. Clonar o Descargar el Proyecto
 ```powershell
@@ -114,7 +114,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-**Opción B: Con Poetry**
+**Opción B: Con Poetry (recomendado)**
 ```powershell
 poetry install
 poetry shell
@@ -140,12 +140,48 @@ setx COINGECKO_API_KEY "TU_API_KEY_AQUI"
 # Reinicia la terminal para que tome efecto
 ```
 
+## API (FastAPI)
+
+### Ejecutar la API
+
+Con venv/pip:
+```powershell
+.\.venv\Scripts\Activate.ps1
+uvicorn api.main:app --reload --port 8000
+```
+
+Con Poetry:
+```powershell
+poetry run uvicorn api.main:app --reload --port 8000
+```
+
+Docs interactivas: http://127.0.0.1:8000/docs
+
+### Endpoints
+- GET /health/ → estado del servicio
+- POST /predict/ → body: {"symbol":"BTC","days":7}
+- GET /recommendations/?symbol=BTC&days=7
+- GET /history/?limit=25
+
+### Ejemplos cURL (PowerShell)
+```powershell
+curl -X GET "http://127.0.0.1:8000/health/"
+
+curl -X POST "http://127.0.0.1:8000/predict/" ^
+  -H "Content-Type: application/json" ^
+  -d '{"symbol":"BTC","days":7}'
+
+curl -X GET "http://127.0.0.1:8000/recommendations/?symbol=BTC&days=7"
+
+curl -X GET "http://127.0.0.1:8000/history/?limit=10"
+```
+
 **Alternativa:** Puedes editar los scripts y pegar la clave directamente (no recomendado para producción).
 
 
 ## Uso del Proyecto
 
-### 🚀 Inicio Rápido: Ejecutar el Notebook Completo
+### 🚀 Inicio Rápido (Notebook completo)
 
 El notebook `scripts/analysis_pipeline.ipynb` contiene TODO el pipeline ejecutable con resultados:
 - ✅ Carga y exploración de datos
@@ -155,7 +191,7 @@ El notebook `scripts/analysis_pipeline.ipynb` contiene TODO el pipeline ejecutab
 - ✅ Modelos RNN (LSTM/GRU) con TensorFlow
 - ✅ Métricas de evaluación (MAE, RMSE)
 
-#### **Opción A: Con Poetry (Recomendado - Gestión Profesional)**
+#### **Opción A: Con Poetry (Gestión Profesional)**
 
 Poetry maneja dependencias y entornos virtuales automáticamente:
 
@@ -171,13 +207,12 @@ poetry run python -m ipykernel install --user --name crypto-bi3
 
 # Iniciar Jupyter Notebook
 poetry run jupyter notebook scripts\analysis_pipeline.ipynb
-```
 
 **Ventajas de Poetry:**
 - ✅ Gestión automática de dependencias y versiones
 - ✅ Entorno virtual aislado sin configuración manual
 - ✅ Reproducibilidad garantizada con `poetry.lock`
-- ✅ Compatible con `pyproject.toml` estándar de Python
+cd Proyecto_BI_3-main
 
 #### **Opción B: Con venv + pip (Tradicional)**
 
@@ -211,20 +246,14 @@ jupyter notebook scripts\analysis_pipeline.ipynb
 Si usas Visual Studio Code:
 
 1. Abrir el proyecto en VS Code
-2. Instalar extensión "Jupyter" de Microsoft
-3. Activar entorno virtual (con Poetry o venv)
-4. Abrir `scripts/analysis_pipeline.ipynb`
-5. Seleccionar kernel `crypto-bi3` o el entorno creado
-6. Ejecutar celdas interactivamente con `Shift+Enter`
-
 **Ventajas de VS Code:**
 - ✅ Ejecución celda por celda
 - ✅ IntelliSense y autocompletado
 - ✅ Debugging integrado
 - ✅ Visualización inline de gráficos
 
-### Scripts Individuales (Uso Avanzado)
-
+### Scripts Individuales (avanzado)
+cd Proyecto_BI_3-main
 Para desarrollo o personalización, puedes ejecutar módulos individuales:
 
 #### 1. Extracción de Datos (ETL)
@@ -329,7 +358,7 @@ model, scaler, metrics = train_rnn(
 print(f"MAE: {metrics['MAE']:.2f}, RMSE: {metrics['RMSE']:.2f}")
 ```
 
-## Dataset Final
+## Dataset Final (clave)
 
 ### Archivo: `data/crypto_clean_BTC_ETH_BNB.csv`
 
@@ -368,7 +397,7 @@ Salidas:
 - Enlace de ejemplo para entrega: [URL de Drive del dataset limpio](https://drive.google.com/) (reemplazar por el real).
 
 
-## Metodología y Criterios de Calidad
+## Metodología y Criterios de Calidad (breve)
 
 ### Pipeline ETL
 1. **Extracción:** Descarga automática desde APIs públicas con manejo de rate limits
@@ -413,7 +442,7 @@ Salidas:
   - Límite de 1000 velas por request
 
 
-## Roadmap y Próximos Pasos
+## Roadmap y Próximos Pasos (visión)
 
 ### ✅ Sprint 1: ETL + EDA (Completado)
 - [x] Identificación de fuentes confiables (CoinGecko + Binance)
@@ -456,7 +485,7 @@ Salidas:
 - [ ] CI/CD pipeline con GitHub Actions
 - [ ] Deploy en cloud (AWS/GCP/Azure)
 
-## Troubleshooting
+## Troubleshooting (rápido)
 
 ### Errores Comunes
 
@@ -513,10 +542,11 @@ python -m ipykernel install --user --name=.venv
 
 ## Documentación Adicional
 
-- **Informe Sprint 1:** Ver `docs/Sprint1_EDA_Report.md`
-- **Informe Completo:** Ver `Informe_Sprint1_Crypto_ETL_EDA.docx`
-- **Notebook Interactivo:** Ver `scripts/analysis_pipeline.ipynb`
-- **Análisis Sprint 2:** Ver `SPRINT2_ANALYSIS.md` (evaluación detallada de cumplimiento)
+- Documentación unificada (completa): `DOCUMENTACION_COMPLETA.md`
+- Informe Sprint 1: `docs/Sprint1_EDA_Report.md`
+- Informe completo: `Informe_Sprint1_Crypto_ETL_EDA.docx`
+- Notebook: `scripts/analysis_pipeline.ipynb`
+- Análisis Sprint 2: `SPRINT2_ANALYSIS.md`
 
 ## 📦 Checklist de Entrega Sprint 2
 
@@ -535,8 +565,8 @@ python -m ipykernel install --user --name=.venv
   - Silhouette Score (calidad de clusters)
 - ✅ **Módulos backend:**
   - `scripts/clustering.py`
-  - `scripts/models_arima.py`
-  - `scripts/models_rnn.py`
+  - `timeseries/models_arima.py`
+  - `timeseries/models_rnn.py`
 - ✅ **Notebook ejecutable:**
   - `scripts/analysis_pipeline.ipynb`
 - ✅ **GitHub:**
@@ -549,9 +579,10 @@ python -m ipykernel install --user --name=.venv
 Proyecto_BI_3-main/
 ├── scripts/
 │   ├── clustering.py              ✅ Módulo clustering
-│   ├── models_arima.py           ✅ Módulo ARIMA
-│   ├── models_rnn.py             ✅ Módulo RNN
-│   └── analysis_pipeline.ipynb   ✅ Notebook ejecutado
+│   └── analysis_pipeline.ipynb    ✅ Notebook ejecutado
+├── timeseries/
+│   ├── models_arima.py            ✅ Módulo ARIMA
+│   └── models_rnn.py              ✅ Módulo RNN
 ├── data/
 │   └── crypto_clean_BTC_ETH_BNB.csv  ✅ Dataset limpio
 ├── reports/eda/                  ✅ Visualizaciones
