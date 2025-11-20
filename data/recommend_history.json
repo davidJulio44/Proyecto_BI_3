@@ -1,0 +1,15 @@
+[
+  {
+    "timestamp": "2025-11-19T22:38:19.861925",
+    "request": {
+      "symbol": "BTC",
+      "days": 7
+    },
+    "response": {
+      "symbol": "BTC",
+      "horizon_days": 7,
+      "trend": "up",
+      "recommendation": "Comprar (tendencia alcista sostenida)"
+    }
+  }
+]
