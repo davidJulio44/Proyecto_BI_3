@@ -78,7 +78,7 @@ def page_overview():
             rows.append({
                 "timestamp": ts_dt,
                 "tipo": kind,
-                "symbol": it.get("request", {}).get("symbol"),
+                "symbol": (it.get("request", {}).get("symbol") or "").upper(),
                 "days": it.get("request", {}).get("days"),
             })
         df = pd.DataFrame(rows)
@@ -98,6 +98,7 @@ def page_predict():
     with st.sidebar:
         st.header("Parámetros de predicción")
         symbol = st.selectbox("Símbolo", SUPPORTED_SYMBOLS, index=0)
+        symbol = (symbol or "").upper()
         days = st.slider("Horizonte (días)", min_value=1, max_value=60, value=7)
         run_btn = st.button("Ejecutar predicción")
 
@@ -138,6 +139,7 @@ def page_recommend():
     with st.sidebar:
         st.header("Parámetros de recomendación")
         symbol = st.selectbox("Símbolo", SUPPORTED_SYMBOLS, index=0, key="rec_symbol")
+        symbol = (symbol or "").upper()
         days = st.slider("Horizonte (días)", min_value=1, max_value=60, value=7, key="rec_days")
         run_btn = st.button("Obtener recomendación")
 
@@ -196,6 +198,9 @@ def page_eda():
     # Cargar datos locales
     try:
         df = pd.read_csv(DATA_PATH, parse_dates=["date"])
+        # Normalize symbol column to uppercase and strip whitespace so all symbols appear
+        if "symbol" in df.columns:
+            df["symbol"] = df["symbol"].astype(str).str.upper().str.strip()
     except FileNotFoundError:
         st.error(f"No se encontró el archivo de datos: {DATA_PATH}. Ejecuta los scripts de ETL.")
         return

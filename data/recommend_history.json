@@ -11,5 +11,31 @@
       "trend": "up",
       "recommendation": "Comprar (tendencia alcista sostenida)"
     }
+  },
+  {
+    "timestamp": "2026-01-01T02:47:08.544733",
+    "request": {
+      "symbol": "ETH",
+      "days": 17
+    },
+    "response": {
+      "symbol": "ETH",
+      "horizon_days": 17,
+      "trend": "up",
+      "recommendation": "Comprar (tendencia alcista sostenida)"
+    }
+  },
+  {
+    "timestamp": "2026-01-01T02:47:15.421742",
+    "request": {
+      "symbol": "ETH",
+      "days": 17
+    },
+    "response": {
+      "symbol": "ETH",
+      "horizon_days": 17,
+      "trend": "up",
+      "recommendation": "Comprar (tendencia alcista sostenida)"
+    }
   }
 ]
